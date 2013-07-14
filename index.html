@@ -1,28 +1,32 @@
-<script src="binaryajax.js" ></script>
-<script src="id3.js" ></script>
-<script src="jquery-2.0.2.min.js"></script>
+<script src="scripts/binaryajax.js" ></script>
+<script src="scripts/id3.js" ></script>
+<script src="scripts/jquery-2.0.2.min.js"></script>
 
 <script>
   var files;
   var doneCount = 0;
   var bucket = "mix.joe.sikelianos.com";
+  var url = "https://s3-bucket-lister.herokuapp.com/"+bucket+"?pattern=songs/*";
+  console.log(url);
 
   $(function() {
 
-    // Fetch a list of filenames for the given bucket
-    $.getJSON("http://cors-bucket-list.herokuapp.com/"+bucket, function(files) {
+    // Fetch s3 bucket filenames via CORS-friendly JSON proxy
+    $.getJSON(url, function(files) {
+
+      console.log(files);
 
       // Get ID3 data for each song
       for (var i in files) {
         var file = files[i];
-        ID3.loadTags(file, function() {
+        ID3.loadTags(file.url, function() {
           doneCount++
 
-          // When ID3 data has been loaded for all files...
+          // When ID3 data has been loaded for all files
           if (files.length == doneCount) {
               for (var i in files) {
               var file = files[i];
-              console.log (ID3.getAllTags(file));
+              console.log (ID3.getAllTags(file.url));
             }
           }
 

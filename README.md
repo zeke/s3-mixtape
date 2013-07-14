@@ -2,7 +2,7 @@
 
 An experiment in hosting static mixtape websites on S3, with the help of
 [cors-bucket-list](https://github.com/zeke/cors-bucket-list), a CORS-friendly
-proxy service that dishes up JSON listing of bucket contents.
+proxy service that dishes up JSON listings of bucket contents.
 
 ## Basic Setup
 
