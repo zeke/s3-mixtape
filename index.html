@@ -5,8 +5,12 @@
 <script>
   var files;
   var doneCount = 0;
-  var bucket = "mix.joe.sikelianos.com";
-  var url = "https://s3-bucket-lister.herokuapp.com/"+bucket+"?pattern=songs/*";
+
+  // pull foo out or foo.s3-website-us-east-1.amazonaws.com
+  // var bucket = document.domain; //.split('.')[0] // "mix.joe.sikelianos.com";
+  var bucket = "s3-mixtape-test"
+
+  var url = "http://localhost:5000/"+bucket+"?pattern=songs/*";
   console.log(url);
 
   $(function() {
@@ -16,15 +20,23 @@
 
       console.log(files);
 
+      var files = [{url: '/foo.mp3'}]
+
       // Get ID3 data for each song
       for (var i in files) {
         var file = files[i];
+
+        // var url = "http://" + document.domain + "/" + file.filenameEncoded
+        console.log('song url', file.url)
+
         ID3.loadTags(file.url, function() {
           doneCount++
 
+          console.log('tags loaded')
+
           // When ID3 data has been loaded for all files
           if (files.length == doneCount) {
-              for (var i in files) {
+            for (var i in files) {
               var file = files[i];
               console.log (ID3.getAllTags(file.url));
             }

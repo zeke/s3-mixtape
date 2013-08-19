@@ -12,3 +12,7 @@ proxy service that dishes up JSON listings of bucket contents.
 1. Upload this repo to your bucket.
 1. Ensure all files in your bucket are publicly readable.
 
+
+
+curl -H "Origin: http://example.com" --verbose \
+  http://s3-mixtape-test.s3.amazonaws.com/songs/lunch.mp3
